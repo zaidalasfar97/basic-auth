@@ -1,7 +1,9 @@
 'use strict';
-function notFound(req, res, next) {
-    res.status(404);
-    res.statusMessage = 'Not Found :(';
-    res.json({ error: `page Not Found ` });
-}
-module.exports = notFound;
+
+module.exports = (req, res) => {
+    res.status(404).json({
+        error: 404,
+        route: req.path,
+        message: 'Not Found',
+    });
+};
