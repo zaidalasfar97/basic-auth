@@ -13,18 +13,18 @@ class UserClass {
     constructor(model) {
         this.model = model;
     }
-    async create(obj) {
-        obj.password = await bcrypt.hash(obj.password, 10);
-        const user = new this.model(obj);
-        const record = user.save(obj);
+    async create(value) {
+        value.password = await bcrypt.hash(value.password, 10);
+        const user = new this.model(value);
+        const record = user.save(value);
         return record;
     }
 
-    async read(obj) {
+    async read(value) {
         try {
-            const user = await this.model.findOne({ username: obj.username });
+            const user = await this.model.findOne({ username: value.username });
             if (user) {
-                const valid = await bcrypt.compare(obj.password, user.password)
+                const valid = await bcrypt.compare(value.password, user.password)
                 if (valid) {
                     return user;
                 } else {
