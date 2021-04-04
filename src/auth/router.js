@@ -1,38 +1,32 @@
 'use strict';
 const express = require('express');
 const users = require('./models/users-model');
-const userCheck = require('./middleware/basic')
+const userCheck = require('./middleware/basic.js')
 const router = express.Router();
 
 
-router.post('/signup', signupHandler);
-router.post('/signin', userCheck, signinHandler);
-
-
-
-async function signupHandler(req, res, next) {
+router.post('/signup', async (req, res, next) => {
     try {
         const record = await users.create(req.body);
         res.status(200).json(record);
     } catch (e) {
-        res.status(403).send("Error in Creating User");
+        res.status(403).send("Can't sign up ");
         next(error);
     }
-}
+});
 
-async function signinHandler(req, res, next) {
+router.post('/signin', userCheck, async (req, res, next) => {
 
     try {
         const record = await users.read(req.body);
         if (record) {
             res.status(200).json(record);
         } else {
-            next('Invalid');
+            next('Invalid username or password');
         }
     } catch (error) {
         next(error);
     }
-}
-
+});
 
 module.exports = router;
