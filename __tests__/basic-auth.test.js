@@ -7,11 +7,11 @@ const request = supergoose(app);
 
 describe('api server check', () => {
     it('should create a new user on POST /signup', async () => {
-        const obj = {
+        const value = {
             username: 'zaid',
             password: '123456'
         };
-        const response = await request.post('/signup').send(obj);
+        const response = await request.post('/signup').send(value);
         expect(response.status).toEqual(200);
         expect(response.body.username).toEqual('zaid');
     });

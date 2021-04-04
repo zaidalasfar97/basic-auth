@@ -17,7 +17,7 @@ async function userCheck(req, res, next) {
         req.body = { username, password };
         next();
     } else {
-        next('Invalid Username or password');
+        next('The username or password are invalid ');
     }
 }
 module.exports = userCheck;
